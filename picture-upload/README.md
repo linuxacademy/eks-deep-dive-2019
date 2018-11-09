@@ -169,7 +169,7 @@ Let’s also scale our frontend service the same way:
 
 ```bash
 kubectl get deployments
-kubectl scale deployment web-client --replicas=3
+kubectl scale deployment web-client-deployment --replicas=3
 kubectl get deployments
 ```
 
@@ -187,4 +187,3 @@ kubectl delete -f ./apps/photo-filter/k8s/deployment.yaml
 kubectl delete -f ./apps/photo-storage/k8s/service.yaml
 kubectl delete -f ./apps/photo-storage/k8s/deployment.yaml
 ```
-
