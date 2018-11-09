@@ -1,0 +1,32 @@
+{
+  "name": "web-client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf coverage .nyc_output node_modules",
+    "dev": "STORAGE_PORT=3001 FILTER_PORT=3002 nodemon ./bin/www",
+    "lint": "eslint",
+    "prod": "node ./bin/www",
+    "test": "nyc -r text -r html ava -T 300000"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.94.0",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "multer": "^1.3.0",
+    "nyc": "^11.0.3",
+    "pug": "~2.0.0-beta11",
+    "request": "^2.81.0",
+    "service-agent": "^2.0.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "nodemon": "^1.11.0",
+    "sinon": "^2.4.1"
+  }
+}

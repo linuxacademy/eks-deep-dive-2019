@@ -1,0 +1,23 @@
+sudo: required
+env:
+  - DOCKER_COMPOSE_VERSION=1.14.0
+language: javascript
+services:
+  - docker
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confdef" install docker-ce
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+install:
+  - docker-compose build
+script:
+  - docker-compose run --no-deps --entrypoint "npm run lint ." web-client
+  - docker-compose run --no-deps --entrypoint "npm run test" web-client
+  - docker-compose run --no-deps --entrypoint "npm run lint ." photo-storage
+  - docker-compose run --no-deps --entrypoint "npm run test" photo-storage
+  - docker-compose run --no-deps photo-filter

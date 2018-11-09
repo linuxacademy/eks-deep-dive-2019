@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: photo-filter
+  name: photo-filter-deployment
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: photo-filter
+    spec:
+      containers:
+        - image: 629054125090.dkr.ecr.us-east-1.amazonaws.com/photo-filter:latest
+          imagePullPolicy: Always
+          name: photo-filter
+          ports:
+            - containerPort: 3002

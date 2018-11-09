@@ -1,0 +1,49 @@
+version: '3'
+services:
+  web-client:
+    build:
+      context: ./apps/web-client
+      dockerfile: Dockerfile
+    image: web-client:latest
+    ports:
+      - "3000:3000"
+    links:
+      - photo-storage
+      - photo-filter
+    entrypoint: npm run prod
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_REGION:
+      AWS_SECRET_ACCESS_KEY:
+      DEBUG:
+      DOCKER_COMPOSE: 'true'
+      FILTER_HOST:
+      FILTER_PORT:
+      PORT:
+      STORAGE_HOST:
+      STORAGE_PORT:
+
+  photo-filter:
+    build:
+      context: ./apps/photo-filter
+      dockerfile: Dockerfile
+    image: photo-filter:latest
+    ports:
+      - "3002:3002"
+    environment:
+      PORT:
+
+  photo-storage:
+    build:
+      context: ./apps/photo-storage
+      dockerfile: Dockerfile
+    image: photo-storage:latest
+    ports:
+      - "3001:3001"
+    entrypoint: npm run prod
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_REGION:
+      AWS_SECRET_ACCESS_KEY:
+      PORT:
+      STAGE:

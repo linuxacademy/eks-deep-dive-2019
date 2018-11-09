@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: web-client
+  name: web-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-client
+  template:
+    metadata:
+      labels:
+        app: web-client
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - prod
+          image: 629054125090.dkr.ecr.us-east-1.amazonaws.com/web-client:latest
+          imagePullPolicy: Always
+          name: web-client
+          ports:
+            - containerPort: 3000
+          env:
+            - name: FILTER_HOST
+              value: photo-filter
+            - name: STORAGE_HOST
+              value: photo-storage

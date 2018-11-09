@@ -1,0 +1,41 @@
+{
+  "name": "photo-storage",
+  "version": "1.0.0",
+  "description": "A microservice to upload and get images from Amazon S3",
+  "main": "server.js",
+  "scripts": {
+    "clean": "rm -rf coverage .nyc_output node_modules",
+    "dev": "STAGE=dev nodemon server.js",
+    "lint": "eslint",
+    "prod": "node server.js",
+    "test": "STAGE=test nyc -r text -r html ava -T 300000"
+  },
+  "keywords": [
+    "photo",
+    "storage",
+    "amazon",
+    "aws",
+    "s3"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.88.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.0.3",
+    "sinon": "^2.3.8"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  }
+}

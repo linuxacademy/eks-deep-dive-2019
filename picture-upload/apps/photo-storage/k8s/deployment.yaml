@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: photo-storage
+  name: photo-storage-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-storage
+  template:
+    metadata:
+      labels:
+        app: photo-storage
+    spec:
+      containers:
+        - image: 629054125090.dkr.ecr.us-east-1.amazonaws.com/photo-storage:latest
+          imagePullPolicy: Always
+          name: photo-storage
+          ports:
+            - containerPort: 3001              
+          command:
+            - npm
+            - run
+            - prod
