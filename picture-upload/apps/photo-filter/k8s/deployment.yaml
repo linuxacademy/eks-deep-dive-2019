@@ -2,7 +2,12 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: photo-filter
+    app.kubernetes.io/name: photo-filter
+    app.kubernetes.io/instance: picture-upload-demo
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: picture-upload
+    app.kubernetes.io/managed-by: kubectl
   name: photo-filter-deployment
   namespace: default
 spec:

@@ -2,7 +2,12 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: web-client
+    app.kubernetes.io/name: web-client
+    app.kubernetes.io/instance: picture-upload-demo
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: picture-upload
+    app.kubernetes.io/managed-by: kubectl
   name: web-client-deployment
 spec:
   replicas: 1
