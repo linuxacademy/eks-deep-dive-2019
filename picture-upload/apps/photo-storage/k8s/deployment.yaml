@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/name: photo-storage
     app.kubernetes.io/instance: picture-upload-demo
-    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/version: '1.0.0'
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: picture-upload
     app.kubernetes.io/managed-by: kubectl
@@ -24,7 +24,7 @@ spec:
           imagePullPolicy: Always
           name: photo-storage
           ports:
-            - containerPort: 3001              
+            - containerPort: 3001
           command:
             - npm
             - run
