@@ -34,3 +34,5 @@ spec:
               value: photo-filter
             - name: STORAGE_HOST
               value: photo-storage
+            - name: DEBUG
+              value: '*'
