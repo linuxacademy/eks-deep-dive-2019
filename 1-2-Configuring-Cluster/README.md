@@ -34,6 +34,8 @@ Specify this S3 template URL in CloudFormation:
 
 `https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2018-11-07/amazon-eks-vpc-sample.yaml`
 
+This is also available from the [EKS Getting Started Guide](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html#vpc-create)
+
 Note the `SecurityGroups`, `VpcId`, and `SubnetIds` output values.
 
 ## Create EKS Cluster
