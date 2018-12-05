@@ -187,3 +187,9 @@ kubectl delete -f ./apps/photo-filter/k8s/deployment.yaml
 kubectl delete -f ./apps/photo-storage/k8s/service.yaml
 kubectl delete -f ./apps/photo-storage/k8s/deployment.yaml
 ```
+
+## Logging with Fluentd
+
+[Fluentd](https://www.fluentd.org/) is an open source data collector providing a unified logging layer, supported by 500+ plugins connecting to many types of systems.
+
+See the [Fluentd](fluentd/README.md) section for more info.
