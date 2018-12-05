@@ -40,5 +40,14 @@ else
 	echo 'AWS CLI already installed'
 fi
 
+# Install eksctl, if absent
+if ! type eksctl >/dev/null 2>&1; then
+	curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+	mv /tmp/eksctl $HOME/bin
+	echo 'eksctl installed'
+else
+	echo 'eksctl already installed'
+fi
+
 # Test if AWS credentials exist
 aws sts get-caller-identity
