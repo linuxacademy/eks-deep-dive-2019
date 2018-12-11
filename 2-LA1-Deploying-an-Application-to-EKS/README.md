@@ -1,14 +1,6 @@
 # Learning Activity: Deploying an Application to EKS
 
-In this hands-on AWS learning activity, you will use the `eksctl` command to create an EKS cluster. Then you will use the `kubectl` command to deploy the `nginx` service to EKS.
-
-## Configure AWS Credentials
-
-
-
-## Create the EKS Cluster with `eksctl`
-
-
+In this hands-on AWS learning activity, you will use the `kubectl` command to deploy the `nginx` service to EKS.
 
 ## Deploy the Service to EKS
 
@@ -22,16 +14,16 @@ Create the service:
 
 We can watch the progress by looking at the deployment status:
 
-`kubectl get deployment my-nginx`
+`kubectl get deployment nginx`
 
 Now that we have a running service that is `type: LoadBalancer` we need to find the ELB's address.
 
-`kubectl get service my-nginx -o wide`
+`kubectl get service nginx -o wide`
 
 We can also use the JSON output to test connectivity:
 
 ```bash
-ELB=$(kubectl get service my-nginx -o json | jq -r '.status.loadBalancer.ingress[].hostname')
+ELB=$(kubectl get service nginx -o json | jq -r '.status.loadBalancer.ingress[].hostname')
 
 curl -m3 -v $ELB
 ```
