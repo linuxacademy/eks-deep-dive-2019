@@ -40,32 +40,32 @@ kubectl patch -n kube-system deployment/kube-dns --patch "$(cat patch-kube-dns.y
 export DNS_CLUSTER_IP=$(kubectl get svc -n kube-system kube-dns -o jsonpath='{.spec.clusterIP}')
 ```
 
-1. Set your cluster's AWS Region to the `REGION` environment variable:
+2. Set your cluster's AWS Region to the `REGION` environment variable:
 
 ```sh
 export REGION="us-east-1"
 ```
 
-1. Download the CoreDNS manifest from the Amazon EKS resource bucket:
+3. Download the CoreDNS manifest from the Amazon EKS resource bucket:
 
 ```sh
 curl -O https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2018-12-10/dns.yaml
 ```
 
-1. Replace the variable placeholders in the `dns.yaml` file with your environment variable values and apply the updated manifest to your cluster\. The following command completes this in one step:
+4. Replace the variable placeholders in the `dns.yaml` file with your environment variable values and apply the updated manifest to your cluster\. The following command completes this in one step:
 
 ```sh
 cat dns.yaml | sed -e "s/REGION/$REGION/g" | sed -e "s/DNS_CLUSTER_IP/$DNS_CLUSTER_IP/g" | kubectl apply -f -
 ```
 
-1. Fetch the `coredns` pod name from your cluster:
+5. Fetch the `coredns` pod name from your cluster:
 
 ```sh
 COREDNS_POD=$(kubectl get pod -n kube-system -l eks.amazonaws.com/component=coredns \
 -o jsonpath='{.items[0].metadata.name}')
 ```
 
-1. Query the `coredns` pod to ensure that it is receiving requests:
+6. Query the `coredns` pod to ensure that it is receiving requests:
 
 ```sh
 kubectl get --raw /api/v1/namespaces/kube-system/pods/$COREDNS_POD:9153/proxy/metrics \
