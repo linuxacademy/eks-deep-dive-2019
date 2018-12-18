@@ -68,9 +68,24 @@ COREDNS_POD=$(kubectl get pod -n kube-system -l eks.amazonaws.com/component=core
 6. Query the `coredns` pod to ensure that it is receiving requests:
 
 ```sh
-kubectl get --raw /api/v1/namespaces/kube-system/pods/$COREDNS_POD:9153/proxy/metrics \
-| grep 'coredns_dns_request_count_total'
+kubectl get --raw /api/v1/namespaces/kube-system/pods/$COREDNS_POD:9153/proxy/metrics | grep 'coredns_dns_request_count_total'
 ```
+
+Note: If this is a new cluster, and you don't see any results, you can generate some DNS traffic in your cluster using the following commands:
+
+```sh
+kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
+
+kubectl exec -ti busybox -- nslookup kubernetes.default
+```
+
+Then repeat the previous `kubectl get` command. You should see output like the following:
+
+```text
+coredns_dns_request_count_total{family="1",proto="udp",server="dns://:53",zone="."} 4
+```
+
+where the digit at the end of the line is the number of DNS requests received by CoreDNS.
 
 ### Scale `kube-dns` down to 0 replicas
 
@@ -86,16 +101,4 @@ kubectl delete -n kube-system deployment/kube-dns serviceaccount/kube-dns config
 
 ## Updating the Worker Node Group
 
-Scale out to at least 2 replicas, so we can get a rolling deployment to prevent an outage:
-
-```sh
-kubectl scale deployments/coredns --replicas=2 -n kube-system
-```
-
-Note the instance type and desired count from the worker node autoscaling group. We will use these values to update our CloudFormation stack.
-
-Update the stack, specifying 1 node greater than the desired instance count, so the rolling update can take place.
-
-Specify the AMI ID (you can find these [here](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html)).
-
-Acknowledge that the stack might create IAM resources, and then choose Update.
+Read more [here](Updating-Worker-Nodegroup.md).
