@@ -1,0 +1,4 @@
+spec:
+  selector:
+    matchLabels:
+      'eks.amazonaws.com/component': 'kube-dns'
