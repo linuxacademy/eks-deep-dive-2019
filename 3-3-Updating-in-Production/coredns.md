@@ -66,7 +66,7 @@ where the digit at the end of the line is the number of DNS requests received by
 ## Scale `kube-dns` down to 0 replicas
 
 ```sh
-kubectl  scale -n kube-system deployment/kube-dns --replicas=0
+kubectl scale -n kube-system deployment/kube-dns --replicas=0
 ```
 
 ## Delete any `kube-dns` resources
