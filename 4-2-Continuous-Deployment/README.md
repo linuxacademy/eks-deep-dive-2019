@@ -95,11 +95,11 @@ Confirm the update by browsing the ELB URL you used previously.
 
 ## Clean Up
 
-1. Delete the CloudFormation stack in the AWS Management Console.
-
 1. Delete the ECR repository.
 
 1. Empty and then delete the S3 bucket used by CodeBuild for build artifacts (bucket name starts with `ekscodepipeline`). First, select the bucket, then empty the bucket and finally delete the bucket.
+
+1. Delete the CloudFormation stack in the AWS Management Console.
 
 1. Delete the IAM role created for CodeBuild to permit changes to the EKS cluster, along with the the Kubernetes deployment and service:
 

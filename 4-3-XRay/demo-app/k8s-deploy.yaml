@@ -1,0 +1,95 @@
+# Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+---
+# Service A deployment
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: service-a
+  namespace: default
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+        - name: service-a
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/service-a:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: API_CNAME
+              value: service-b.default
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: xray-service.default
+
+---
+# Service A
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a
+spec:
+  selector:
+    app: service-a
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+
+###
+---
+# Service B
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: service-b
+  namespace: default
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: service-b
+    spec:
+      containers:
+        - name: service-b
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/service-b:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: AWS_XRAY_DAEMON_ADDRESS
+              value: xray-service.default
+
+---
+# Service B
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-b
+spec:
+  selector:
+    app: service-b
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
