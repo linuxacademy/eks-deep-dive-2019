@@ -42,6 +42,18 @@ Apply the configuration:
 kubectl apply -f xray-k8s-daemonset.yaml
 ```
 
+To view the status of the X-Ray DaemonSet:
+
+```sh
+kubectl describe daemonset xray-daemon
+```
+
+Ensure all pods are running. To view the logs for all of the X-Ray daemon pods run the following:
+
+```sh
+kubectl logs -l app=xray-daemon
+```
+
 ## Build the Two Demo Applications
 
 ```sh
@@ -83,12 +95,30 @@ Deploy the services:
 kubectl apply -f k8s-deploy.yaml
 ```
 
+When the services are first deployed, it can take up to several minutes for the ELB to be created and DNS updated.
+
 ## Generate Traffic to `service-a`
 
-Find the `service-a` load balancer endpoint DNS name using `kubectl get svc -o wide`.
+Find the `service-a` load balancer endpoint DNS name using
 
-Send some requests to the `service-a` endpoint using `curl` or a browser.
+`kubectl get service service-a -o wide`
+
+Send some requests to the `service-a` endpoint using `curl` or a browser. The endpoint name ends in `elb.amazonaws.com`.
 
 ## View the Traces in X-Ray
 
 Nagivate to AWS X-Ray in the AWS Management Console.
+
+## Cleanup
+
+Delete the example applications:
+
+```sh
+kubectl delete deployments service-a service-b
+```
+
+Delete the X-Ray DaemonSet:
+
+```sh
+kubectl delete -f xray-k8s-daemonset.yaml
+```
