@@ -1,19 +1,6 @@
-// Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License").
-// You may not use this file except in compliance with the License.
-// A copy of the License is located at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// or in the "license" file accompanying this file. This file is distributed
-// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing
-// permissions and limitations under the License.
-
-var XRay = require('aws-xray-sdk');
-var AWS = XRay.captureAWS(require('aws-sdk'));
-var http = XRay.captureHTTPs(require('http'));
+var XRay = require('aws-xray-sdk');            // Initialize X-ray SDK
+var AWS = XRay.captureAWS(require('aws-sdk')); // Capture all AWS SDK calls
+var http = XRay.captureHTTPs(require('http')); // Capture all HTTP/HTTPS calls
 
 const express = require('express');
 var bodyParser = require('body-parser');
@@ -31,6 +18,8 @@ XRay.config([XRay.plugins.EC2Plugin, XRay.plugins.ECSPlugin]);
 XRay.middleware.enableDynamicNaming();
 
 app.use(bodyParser.urlencoded({extended: false}));
+
+// Start capturing the calls in the application
 app.use(XRay.express.openSegment('service-a'));
 
 app.get('/health', function(req, res) {
@@ -77,6 +66,7 @@ app.get('/', function(req, res) {
   remoteReq.end();
 });
 
+// Stop capturing the calls in the application
 app.use(XRay.express.closeSegment());
 
 app.listen(PORT);
