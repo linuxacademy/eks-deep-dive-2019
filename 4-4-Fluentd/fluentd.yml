@@ -191,7 +191,7 @@ spec:
           mountPath: /fluentd/etc
       containers:
       - name: fluentd-cloudwatch
-        image: fluent/fluentd-kubernetes-daemonset:v1.1-debian-cloudwatch
+        image: fluent/fluentd-kubernetes-daemonset:v1.3-debian-cloudwatch
         env:
           - name: REGION
             value: us-east-1
