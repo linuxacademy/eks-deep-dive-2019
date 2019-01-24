@@ -154,7 +154,7 @@ plugins: []
 ## Configure grafana datasources
 ## ref: http://docs.grafana.org/administration/provisioning/#datasources
 ##
-datasources: {}
+datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
