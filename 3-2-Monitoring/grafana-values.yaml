@@ -7,7 +7,8 @@ serviceAccount:
 
 replicas: 1
 
-deploymentStrategy: RollingUpdate
+deploymentStrategy:
+  type: RollingUpdate
 
 readinessProbe:
   httpGet:
