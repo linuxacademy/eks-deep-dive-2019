@@ -1,9 +1,12 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-scaleout
+  name: nginx-to-scaleout
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
   template:
     metadata:
       labels:
@@ -12,7 +15,7 @@ spec:
     spec:
       containers:
       - image: nginx
-        name: nginx-scaleout
+        name: nginx-to-scaleout
         resources:
           limits:
             cpu: 500m
