@@ -101,7 +101,7 @@ subjects:
     namespace: kube-system
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cluster-autoscaler
@@ -120,7 +120,7 @@ spec:
     spec:
       serviceAccountName: cluster-autoscaler
       containers:
-        - image: k8s.gcr.io/cluster-autoscaler:v1.2.2
+        - image: us.gcr.io/k8s-artifacts-prod/autoscaling/cluster-autoscaler:v1.16.5
           name: cluster-autoscaler
           resources:
             limits:
@@ -135,6 +135,7 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
+            - --aws-use-static-instance-list=true
             - --nodes=2:8:<AUTOSCALING GROUP NAME>
           env:
             - name: AWS_REGION
