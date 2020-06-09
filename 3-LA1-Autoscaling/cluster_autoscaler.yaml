@@ -135,6 +135,7 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
+            - --aws-use-static-instance-list=true
             - --nodes=2:8:<AUTOSCALING GROUP NAME>
           env:
             - name: AWS_REGION
