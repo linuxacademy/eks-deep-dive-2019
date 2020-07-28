@@ -1,7 +1,5 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
-metadata:
-  labels:
     app.kubernetes.io/name: photo-filter
     app.kubernetes.io/instance: picture-upload-demo
     app.kubernetes.io/version: '1.0.0'
@@ -12,6 +10,9 @@ metadata:
   namespace: default
 spec:
   replicas: 1
+  selector:
+      matchLabels:
+        app: photo-filter
   template:
     metadata:
       labels:
