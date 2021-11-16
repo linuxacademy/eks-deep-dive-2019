@@ -10,7 +10,7 @@
     "test": "nyc -r text -r html ava -T 300000"
   },
   "dependencies": {
-    "aws-sdk": "^2.253.0",
+    "aws-sdk": "^2.814.0",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "morgan": "~1.8.1",
