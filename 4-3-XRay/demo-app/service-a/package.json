@@ -10,7 +10,7 @@
     "aws-sdk": "^2.221.1",
     "aws-xray-sdk": "^1.2.0",
     "body-parser": "latest",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "npm": "^5.8.0",
     "querystring": "latest"
   }
