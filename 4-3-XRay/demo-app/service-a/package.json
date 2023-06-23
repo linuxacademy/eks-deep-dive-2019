@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "aws-sdk": "^2.221.1",
-    "aws-xray-sdk": "^1.2.0",
+    "aws-xray-sdk": "^3.5.0",
     "body-parser": "latest",
     "express": "^4.16.3",
-    "npm": "^5.8.0",
+    "npm": "^9.7.2",
     "querystring": "latest"
   }
 }
